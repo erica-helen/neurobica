@@ -1,23 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Observable, Subject } from 'rxjs';
-
-import {
-   debounceTime, distinctUntilChanged, switchMap
- } from 'rxjs/operators';
-
-import { ACTIVITY } from '../mock-acitivies';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { ActivityService } from '../activity.service';
-import { Activity1 } from '../activity';
+import { Activity } from '../activity';
 
 @Component({
     selector: 'app-activity-search',
     templateUrl: './activity-search.component.html',
-    styleUrls: ['./activity-search.component.css'] 
+    styleUrls: ['./activity-search.component.css']
   })
 
 export class ActivitySearchComponent implements OnInit {
-  activities$!: Observable<Activity1[]>;
+  activities$!: Observable<Activity[]>;
   private searchTerms = new Subject<string>();
 
   constructor(private ActivityService: ActivityService) {}

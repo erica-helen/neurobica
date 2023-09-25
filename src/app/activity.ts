@@ -1,5 +1,5 @@
-export interface Activity1 {
+export interface Activity {
     id: number;
     name: string;
-    des: string;
-  }
+    description?: string;
+}

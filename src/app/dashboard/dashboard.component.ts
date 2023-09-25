@@ -1,5 +1,5 @@
 import { Component , OnInit} from '@angular/core';
-import { Activity1 } from '../activity';
+import { Activity } from '../activity';
 import { ActivityService } from '../activity.service';
 
 @Component({
@@ -7,19 +7,19 @@ import { ActivityService } from '../activity.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 
-  activities: Activity1 [] = [];
+  activities: Activity [] = [];
 
-  constructor(private ActivityService: ActivityService) {}
+  constructor(private activityService: ActivityService) {}
 
   ngOnInit(): void {
     this.getActivities();
   }
 
   getActivities(): void {
-    this.ActivityService.getActivity()
-    .subscribe(activities => this.activities = activities.slice(0,5));
+    this.activityService.getAllActivities()
+      .subscribe(activities => this.activities = activities.slice(0,5));
   }
 }
 

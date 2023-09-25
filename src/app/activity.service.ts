@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Activity1  } from './activity';
-import { ACTIVITY} from './mock-acitivies';
+import {Activity } from './activity';
 import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
 
 @Injectable({
@@ -12,123 +11,82 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class ActivityService {
 
-  private ActivityUrl = 'api/activities';  // URL to web api
+  private apiUrl = 'api/activities';  // URL to web api
+  private httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 
-  constructor(
-    private http: HttpClient,
-    private messageService: MessageService) { }
+  constructor( private http: HttpClient, private messageService: MessageService) {}
 
-  
-    httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
-
-
-  // getActivity():Observable<Activity1[]> {
-  //   const activities = of(ACTIVITY);
-  //   this.messageService.add('ActivityService: fetched activity');
-  //   return activities;
-  // } 
-
-
-  // getActivities(id: number): Observable<Activity1 | undefined> {
-  //   const activities: Activity1 | undefined = ACTIVITY.find(a => a.id === id);
-  //   this.messageService.add('ActivityService: fetched activity id=${id}');
-  //   return of (activities)
-  // }
-
-  getActivities(id: number): Observable<Activity1> {
-    const url = `${this.ActivityUrl}/${id}`;
-    return this.http.get<Activity1>(url).pipe(
+  getActivity(id: number): Observable<Activity> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.get<Activity>(url).pipe(
       tap(_ => this.log(`fetched activity id=${id}`)),
-      catchError(this.handleError<Activity1>(`getActivities id=${id}`))
+      catchError(this.handleError<Activity>(`getActivities id=${id}`))
     );
   }
 
-
-  getActivity(): Observable<Activity1[]> {
-    return this.http.get<Activity1[]>(this.ActivityUrl)
+  getAllActivities(): Observable<Activity[]> {
+    return this.http.get<Activity[]>(this.apiUrl)
       .pipe(
         tap(_ => this.log('fetched heroes')),
-        catchError(this.handleError<Activity1[]>('getActivity', []))
+        catchError(this.handleError<Activity[]>('getActivity', []))
       );
   }
 
- getActivityNo404<Data>(id: number): Observable<Activity1> {
-    const url = `${this.ActivityUrl}/?id=${id}`;
-    return this.http.get<Activity1[]>(url)
-      .pipe(
-        map(activities => activities[0]), // returns a {0|1} element array
-        tap(h => {
-          const outcome = h ? 'fetched' : 'did not find';
-          this.log(`${outcome} activity id=${id}`);
-        }),
-        catchError(this.handleError<Activity1>(`getActivity id=${id}`))
-      );
-  }
-
-  private log(message: string) {
-    this.messageService.add('ActivityService: ${message}');
-  }
-
-  updateActivity(ACTIVITY: Activity1): Observable<any> {
-    return this.http.put(this.ActivityUrl, ACTIVITY, this.httpOptions).pipe(
+  updateActivity(ACTIVITY: Activity): Observable<any> {
+    return this.http.put(this.apiUrl, ACTIVITY, this.httpOptions).pipe(
       tap(_ => this.log(`updated activity id=${ACTIVITY.id}`)),
       catchError(this.handleError<any>('updateActivity'))
     );
   }
 
-  /**
- * Handle Http operation that failed.
- * Let the app continue.
- *
- * @param operation - name of the operation that failed
- * @param result - optional value to return as the observable result
- */
-private handleError<T>(operation = 'operation', result?: T) {
-  return (error: any): Observable<T> => {
-
-    // TODO: send the error to remote logging infrastructure
-    console.error(error); // log to console instead
-
-    // TODO: better job of transforming error for user consumption
-    this.log(`${operation} failed: ${error.message}`);
-
-    // Let the app keep running by returning an empty result.
-    return of(result as T);
-  };
-}
-addActivity(activity: Activity1): Observable<Activity1> {
-  return this.http.post<Activity1>(this.ActivityUrl, activity, this.httpOptions).pipe(
-    tap((newActivity: Activity1) => this.log(`added activity w/ id=${newActivity.id}`)),
-    catchError(this.handleError<Activity1>('addActivity'))
-  );
-}
-
-/** DELETE: delete the hero from the server */
-deleteActivity(id: number): Observable<Activity1> {
-  const url = `${this.ActivityUrl}/${id}`;
-
-  return this.http.delete<Activity1>(url, this.httpOptions).pipe(
-    tap(_ => this.log(`deleted activity id=${id}`)),
-    catchError(this.handleError<Activity1>('deleteActivity'))
-  );
-}
-
-/* GET heroes whose name contains search term */
-searchActivity(term: string): Observable<Activity1[]> {
-  if (!term.trim()) {
-    // if not search term, return empty hero array.
-    return of([]);
+  addActivity(activity: Activity): Observable<Activity> {
+    return this.http.post<Activity>(this.apiUrl, activity, this.httpOptions).pipe(
+      tap((newActivity: Activity) => this.log(`added activity w/ id=${newActivity.id}`)),
+      catchError(this.handleError<Activity>('addActivity'))
+    );
   }
-  return this.http.get<Activity1[]>(`${this.ActivityUrl}/?name=${term}`).pipe(
-    tap(x => x.length ?
-       this.log(`found activity matching "${term}"`) :
-       this.log(`no activity matching "${term}"`)),
-    catchError(this.handleError<Activity1[]>('searchActivity', []))
-  );
+
+  deleteActivity(id: number): Observable<Activity> {
+    const url = `${this.apiUrl}/${id}`;
+
+    return this.http.delete<Activity>(url, this.httpOptions).pipe(
+      tap(_ => this.log(`deleted activity id=${id}`)),
+      catchError(this.handleError<Activity>('deleteActivity'))
+    );
+  }
+
+  searchActivity(term: string): Observable<Activity[]> {
+    if (!term.trim()) {
+      return of([]);
+    }
+    return this.http.get<Activity[]>(`${this.apiUrl}/?name=${term}`).pipe(
+      tap(x => x.length ?
+        this.log(`found activity matching "${term}"`) :
+        this.log(`no activity matching "${term}"`)),
+      catchError(this.handleError<Activity[]>('searchActivity', []))
+    );
+  }
+
+
+  private log(message: string) {
+    this.messageService.add(`ActivityService: ${message}`);
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // TODO: better job of transforming error for user consumption
+      this.log(`${operation} failed: ${error.message}`);
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
 }
 
-}
 
-  
