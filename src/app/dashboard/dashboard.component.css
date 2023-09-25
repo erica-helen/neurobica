@@ -20,17 +20,19 @@ h2 {
   
   a {
     background-color: #3f525c;
-    border-radius: 2px;
+    border-radius: 40px;
     padding: 1rem;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     text-decoration: none;
     display: inline-block;
     color: #fff;
     text-align: center;
     width: 100%;
     min-width: 70px;
-    margin: .5rem auto;
+    /* margin: .5rem auto; */
+    margin: 3px;
     box-sizing: border-box;
+    
   
     /* flexbox */
     order: 0;

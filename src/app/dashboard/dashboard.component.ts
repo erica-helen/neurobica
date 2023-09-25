@@ -19,7 +19,7 @@ export class DashboardComponent {
 
   getActivities(): void {
     this.ActivityService.getActivity()
-    .subscribe(activities => this.activities = activities.slice(1,5));
+    .subscribe(activities => this.activities = activities.slice(0,5));
   }
 }
 
