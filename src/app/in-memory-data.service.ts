@@ -18,7 +18,6 @@ export class InMemoryDataService implements InMemoryDbService {
       { id: 19, name: 'Activity 8' },
       { id: 20, name: 'Activity 9' }
     ];
-    console.log(activities)
     return {activities};
   }
 
