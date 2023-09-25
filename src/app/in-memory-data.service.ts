@@ -7,7 +7,7 @@ import { Activity1 } from './activity';
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     const activities = [
-      { id: 12, name: 'Activity 1' },
+      { id: 12, name: 'Activity 1', description: 'eewwwe1' },
       { id: 13, name: 'Activity 2' },
       { id: 14, name: 'Activity 3' },
       { id: 15, name: 'Activity 4' },
