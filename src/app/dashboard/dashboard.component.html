@@ -1,0 +1,9 @@
+<h2>Top Activities</h2>
+<div class="activities-menu">
+  <a *ngFor="let activity of activities"
+    routerLink="/detail/{{activity.id}}">
+    {{activity.name}}
+</a>
+</div>
+
+<app-activity-search></app-activity-search>
