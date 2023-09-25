@@ -1,9 +1,6 @@
 import { Component, OnInit  } from '@angular/core';
-import {Activity1 } from '../activity';
-
+import {Activity } from '../activity';
 import { ActivityService } from '../activity.service';
-import { ACTIVITY } from '../mock-acitivies';
-
 
 @Component({
   selector: 'app-activities',
@@ -11,36 +8,33 @@ import { ACTIVITY } from '../mock-acitivies';
   styleUrls: ['./activities.component.css']
 })
 
-export class ActivitiesComponent {
+export class ActivitiesComponent implements OnInit {
+  selectedActivity?: Activity;
+  activities: Activity[] = [];
 
-  selectedActivity1?: Activity1;
-
-  activities: Activity1 [] = [];
-
-  constructor(private ActivityService:ActivityService) {}
+  constructor(private activityService:ActivityService) {}
 
   ngOnInit(): void {
     this.getActivities();
   }
 
-  
   getActivities(): void {
-    this.ActivityService.getActivity()
+    this.activityService.getAllActivities()
     .subscribe(activities => this.activities = activities);
   }
 
   add(name: string): void {
     name = name.trim();
     if (!name) { return; }
-    this.ActivityService.addActivity({ name } as Activity1)
-      .subscribe(ACTIVITY => {
-        this.activities.push(ACTIVITY);
+    this.activityService.addActivity({ name } as Activity)
+      .subscribe(activity => {
+        this.activities.push(activity);
       });
   }
 
-  delete(activity: Activity1): void {
+  delete(activity: Activity): void {
     this.activities = this.activities.filter(a => a !== activity);
-    this.ActivityService.deleteActivity(activity.id).subscribe();
+    this.activityService.deleteActivity(activity.id).subscribe();
   }
 
 }

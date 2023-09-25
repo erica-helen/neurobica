@@ -1,6 +1,6 @@
-import { Activity1 } from './activity';
+import { Activity } from './activity';
 
-export const ACTIVITY: Activity1 [] = [
+export const ACTIVITY: Activity [] = [
   { id: 12, name: 'Activity 1' , description: 'x'},
   { id: 13, name: 'Activity 2', description: 'x' },
   { id: 14, name: 'Activity 3' , description: 'x'},
@@ -10,4 +10,4 @@ export const ACTIVITY: Activity1 [] = [
   { id: 18, name: 'Activity 7', description: 'x' },
   { id: 19, name: 'Activity 8' , description: 'x'},
   { id: 20, name: 'Activity 9' , description: 'x'}
-];  
+];

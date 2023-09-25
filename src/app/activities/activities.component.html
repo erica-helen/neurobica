@@ -1,53 +1,21 @@
- <!-- <h2>My activities </h2>
-<ul class="activities">
-  <li *ngFor="let Activity of activities">
-    <button [class.selected]="Activity === selectedActivity1" type="button" (click)="onSelect(Activity)">
-      <span class="badge">{{Activity.id}}</span>
-      <span class="name">{{Activity.name}}</span>
-    </button>
-  </li>
-</ul>
-
-<div *ngIf="selectedActivity1">
-  <h2>{{selectedActivity1.name | uppercase}} Details</h2>
-  <div>id: {{selectedActivity1.id}}</div>
-  <div>
-    <label for="Activity">Activity name: </label>
-    <input id="Activity" [(ngModel)]="selectedActivity1.name" placeholder="name">
-  </div>
-</div> -->
-
-
-
-<!-- ULTIMO CODIGO
-<h2>My activities</h2>
-<ul class="heroes">
-  <li *ngFor="let Activity of activities">
-    <a routerLink="/detail/{{Activity.id}}">
-      <span class="badge">{{Activity.id}}</span> {{Activity.name}}
-    </a>
-  </li>
-</ul> -->
-
 <h2>My activities</h2>
 
 <div>
   <label for="new-activity">Activity name: </label>
   <input id="new-activity" #activityName />
 
-  <!-- (click) passes input value to add() and then clears the input -->
-  <button type="button" class="add-button" (click)="add(activityName.value); activityName.value=''">
+  <button type="button" class="add-button" (click)="add(activityName.value)">
     Add activity
   </button>
 </div>
 
 <ul class="activities">
-  <li *ngFor="let Activity of activities">
-    <a routerLink="/detail/{{Activity.id}}">
-      <span class="badge">{{Activity.id}}</span> {{Activity.name}}
+  <li *ngFor="let activity of activities">
+    <a routerLink="/detail/{{activity.id}}">
+      <span class="badge">{{activity.id}}</span> {{activity.name}}
     </a>
     <button type="button" class="delete" title="delete activity"
-      (click)="delete(Activity)">x</button>
+      (click)="delete(activity)">x</button>
   </li>
 </ul>
 
