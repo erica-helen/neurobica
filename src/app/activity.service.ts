@@ -29,7 +29,7 @@ export class ActivityService {
   getAllActivities(): Observable<Activity[]> {
     return this.http.get<Activity[]>(this.apiUrl)
       .pipe(
-        tap(_ => this.log('fetched heroes')),
+        tap(_ => this.log('fetched activities')),
         catchError(this.handleError<Activity[]>('getActivity', []))
       );
   }
