@@ -26,3 +26,6 @@ button:disabled {
 h1{
   font-size: 40px;
 }
+.done {
+  text-decoration: line-through;
+}

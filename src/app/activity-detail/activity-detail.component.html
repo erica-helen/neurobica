@@ -5,6 +5,11 @@
   <div>
     <label for="activity1-name">Activity name: </label>
     <input id="activity1-name" [(ngModel)]="activity.name" placeholder="name">
+    <div>
+      <p *ngFor="let check of activity?.checklist">
+        <span [ngClass]="{'done': !check.enabled}" (click)="updateChecklist(check.id)">{{check.name}}</span>
+      </p>
+    </div>
     <button type="button" (click)="goBack()">go back</button>
     <button type="button" (click)="save()">save</button>
   </div>

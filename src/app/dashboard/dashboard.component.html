@@ -1,6 +1,7 @@
 <h2>Top Activities</h2>
 <div class="activities-menu">
   <a *ngFor="let activity of activities"
+    [ngClass]="{'disabled': !activity.enabled}"
     routerLink="/detail/{{activity.id}}">
     {{activity.name}}
   </a>

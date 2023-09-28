@@ -38,4 +38,12 @@ export class ActivityDetailComponent implements OnInit {
         .subscribe(() => this.goBack());
     }
   }
+
+  updateChecklist(checkItemId: Number): void {
+    const checkedItem = this.activity?.checklist?.find(item => item.id === checkItemId);
+    if(checkedItem && this.activity){
+      checkedItem.enabled = false;
+      this.activityService.updateActivity(this.activity).subscribe();
+    }
+  }
 }

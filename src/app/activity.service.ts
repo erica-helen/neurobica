@@ -3,7 +3,7 @@ import {Activity } from './activity';
 import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, tap, map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -29,7 +29,11 @@ export class ActivityService {
   getAllActivities(): Observable<Activity[]> {
     return this.http.get<Activity[]>(this.apiUrl)
       .pipe(
-        tap(_ => this.log('fetched activities')),
+        map((activities: Activity[]) => {
+          this.log('fetched activities')
+          const mappedActivities: Activity[] = this.mapEnableActivities(activities);
+          return mappedActivities
+        }),
         catchError(this.handleError<Activity[]>('getActivity', []))
       );
   }
@@ -86,6 +90,22 @@ export class ActivityService {
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
+  }
+
+  mapEnableActivities(activities: Activity[]):Activity[] {
+    const checklist: Boolean[] = [];
+    
+    const mappedActivities:Activity[] = activities.map((activity, indexOf) => {
+      const mappedActivity: Activity = {
+        ...activity,
+        enabled: !checklist.some(check => check)
+      };
+
+      checklist.push(activity.checklist[0].enabled)
+      return mappedActivity
+    })
+
+    return mappedActivities;
   }
 }
 
