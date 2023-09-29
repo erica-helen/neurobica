@@ -7,7 +7,7 @@ import { generateActivitiesDatabase } from './activity';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Neurobics activities';
+  title = 'Exercise your brain';
   constructor() {
     generateActivitiesDatabase();
   }

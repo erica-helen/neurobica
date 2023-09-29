@@ -13,27 +13,67 @@ export const ACTIVITY: Activity[] = [];
 
 export function generateActivitiesDatabase() {
     const activities = [
-        { id: 1, name: 'Activity 1', description: 'Dress with your eyes closed', enabled: false },
-        { id: 2, name: 'Activity 2', description: 'Eat different types of food', enabled: false },
-        { id: 3, name: 'Activity 3', description: 'Check the time in a mirror', enabled: false },
-        { id: 4, name: 'Activity 4', description: 'Switch the computer mouse aside ', enabled: false },
-        { id: 5, name: 'Activity 5', description: 'Brush your teeth using your left hand (or your right, if you are left-handed)', enabled: false },
-        { id: 6, name: 'Activity 6', description: 'When reading a word, think of five others that start with the same letter', enabled: false},
-        { id: 7, name: 'Activity 7', description: 'If you are right-handed, try writing with your left hand', enabled: false },
-        { id: 8, name: 'Activity 8', description: 'Learn a new language', enabled: false },
+        'Dress with your eyes closed',
+        'Eat different types of food',
+        'Check the time in a mirror',
+        'Switch the computer mouse aside',
+        'Brush your teeth using your left hand (or your right, if you are left-handed)',
+        'When reading a word, think of five others that start with the same letter',
+        'If you are right-handed, try writing with your left hand',
+        'Learn a new language',
+       ' Take a different route to work or the grocery store.',
+        'Listen to music from a foreign language and try to decipher the lyrics.' ,
+       ' Close your eyes and identify objects by smell and touch.' ,
+       ' Memorize and recite a poem or passage from a book.' ,
+        'Draw a picture with your non-dominant hand. ',
+       ' Count backward from 100.' ,
+       ' Practice mindfulness meditation to improve concentration.' ,
+       'Count backward from 100 in increments of 7.' ,
+       ' Solve puzzles upside down. ',
+       ' Take a shower with your eyes closed. ',
+        'Close your eyes and try to identify different sounds around you, such as birds, cars passing by, or musical instruments, just by sound.' ,
+        'Try to recall and recount your past day or week in reverse chronological order.' ,
+       ' Do 5 multiplications of 3-digit numbers without using the calculator.' ,
+       ' Take apart a common household item, like a clock or a remote control, and try to put it back together without looking at instructions.' ,
+        'Create a piece of art using both your dominant and non-dominant hand. ',
+        'Try solving crosswords or word puzzles with higher difficulty levels than usual.' ,
+       ' Try a sport you ve never done before', 
+       ' Do aerobic activity at least 5 times a week.',
+
     ];
 
-    activities.forEach(activity => {
-        const activityWithChecklist: Activity = {
-            ...activity,
-            checklist: []
+    // activities.forEach((activity, indexOf) => {
+    //     if(!ACTIVITY.find(item => item.description === activity )){
+    //         const activityMapped: Activity = {
+    //             id:indexOf+1,
+    //             name:  `Activity ${indexOf+1}`,
+    //             description:activity, 
+    //             enabled:false,
+    //             checklist:[{
+    //                 id:1,
+    //                 name: `Day ${indexOf+1}`,
+    //                 enabled:true,
+    //             }]
+    //         }   
+    //         ACTIVITY.push(activityMapped)   
+    //     }  
+    // })
+
+    for(let i = 0; i < activities.length; i++){
+        if(!ACTIVITY.find(item => item.description === activities[i] )){
+            const activityMapped: Activity = {
+                id:i+1,
+                name: `Activity ${i+1}`,
+                description: activities[i],
+                enabled: false,
+                checklist:[{
+                    id:1,
+                    name: `Day ${i+1}`,
+                    enabled:true,
+                }]
+            }
+            ACTIVITY.push(activityMapped)
         }
-
-        for(let i = 1; i <= 30; i++){
-            activityWithChecklist.checklist.push({id: i, name: `Day ${i}`, enabled: true})
-        }
-
-
-        ACTIVITY.push(activityWithChecklist)
-    })
+    }
 }
+
