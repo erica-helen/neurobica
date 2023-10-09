@@ -4,7 +4,8 @@
   <!-- <div><span>id: </span>{{activity.id}}</div> -->
 </div>
 <br>
-<img src="../../assets/imgs/brain.png"/>
+<img *ngIf="!this.checked" src="../../assets/imgs/brainoff.png"/>
+<img *ngIf="this.checked" src="../../assets/imgs/brain.png"/>
 
   <div>
     <label for="activity1-name">Activity name: </label>

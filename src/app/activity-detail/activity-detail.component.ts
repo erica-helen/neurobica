@@ -12,6 +12,7 @@ import { Location } from '@angular/common';
   })
 export class ActivityDetailComponent implements OnInit {
   activity: Activity | undefined;
+  checked = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,7 +27,9 @@ export class ActivityDetailComponent implements OnInit {
   getActivity (): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.activityService.getActivity(id)
-      .subscribe((activity: Activity | undefined) => this.activity = activity);
+      .subscribe((activity: Activity | undefined) => {
+        this.activity = activity;
+      });
   }
 
   goBack(): void {
@@ -44,7 +47,10 @@ export class ActivityDetailComponent implements OnInit {
     const checkedItem = this.activity?.checklist?.find(item => item.id === checkItemId);
     if(checkedItem && this.activity){
       checkedItem.enabled = false;
-      this.activityService.updateActivity(this.activity).subscribe();
+      this.activityService.updateActivity(this.activity).subscribe(() =>{
+        this.getActivity()
+        this.checked = !!this.activity?.checklist?.some(check=>check.enabled === false);
+      }) 
     }
   }
 }
