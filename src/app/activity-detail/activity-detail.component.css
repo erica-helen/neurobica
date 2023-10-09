@@ -25,16 +25,27 @@ button:disabled {
 }
 h1{
   font-size: 40px;
+  
 }
 .done {
   text-decoration: line-through;
-}
-h2{
-  font-size: 40px;
-  color:black;
 }
 
 img {
   width: 200px;
   height: 150px
+}
+
+.box {
+  border: 2px solid #000; 
+  padding: 20px;
+  width: 700px; 
+  border-radius: 10px 20px 30px 40px;
+  
+ 
+}
+
+.box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
