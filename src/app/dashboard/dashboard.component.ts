@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
 
   getActivities(): void {
     this.activityService.getAllActivities()
-      .subscribe(activities => this.activities = activities.slice(0,26));
+      .subscribe(activities => this.activities = activities.slice(0,30));
   }
 }
 

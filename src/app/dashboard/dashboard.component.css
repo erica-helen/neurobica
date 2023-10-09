@@ -45,7 +45,7 @@ h2 {
     cursor: text;
     pointer-events: none;
     text-decoration: none;
-    background-color: gray;
+    background-color: rgb(177, 177, 177);
   }
   
   @media (min-width: 600px) {

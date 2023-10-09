@@ -29,3 +29,12 @@ h1{
 .done {
   text-decoration: line-through;
 }
+h2{
+  font-size: 40px;
+  color:black;
+}
+
+img {
+  width: 200px;
+  height: 150px
+}

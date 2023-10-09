@@ -1,24 +1,26 @@
 <div *ngIf="activity">
-  <h2>{{activity.name | uppercase }} Details</h2>
+  <h2>{{activity.name }}: </h2>
   <h1> - {{activity.description}}</h1>
-  <div><span>id: </span>{{activity.id}}</div>
+  <!-- <div><span>id: </span>{{activity.id}}</div> -->
+<img src="../../assets/imgs/brain.png"/>
+
   <div>
     <label for="activity1-name">Activity name: </label>
     <input id="activity1-name" [(ngModel)]="activity.name" placeholder="name">
+
     <!-- <div>
       <p *ngFor="let check of activity?.checklist">
         <span [ngClass]="{'done': !check.enabled}" (click)="updateChecklist(check.id)">{{check.name}}</span>
       </p>
     </div> -->
 
-    <div> 
-    <input type="checkbox"/> Teste <p *ngFor="let check of activity?.checklist">
-      <span [ngClass]="{'done': !check.enabled}" (click)="updateChecklist(check.id)">{{check.name}}</span>
-    </p>
+    <div *ngFor="let check of activity?.checklist"> 
+      <span [ngClass]="{'done': !check.enabled}" (click)="updateChecklist(check.id)">
+        <input type="checkbox"/> {{check.name}}
+      </span>
     </div>
 
     <button type="button" (click)="goBack()">go back</button>
     <button type="button" (click)="save()">save</button>
   </div>
 </div>
-
