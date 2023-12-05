@@ -17,9 +17,9 @@
       </p>
     </div> -->
 
-    <div *ngFor="let check of activity?.checklist"> 
+    <div  *ngFor="let check of activity?.checklist"> 
       <span [ngClass]="{'done': !check.enabled}" (click)="updateChecklist(check.id)">
-        <input type="checkbox"/> {{check.name}}
+        <input type="checkbox" id="checkboxid"/> {{check.name}}
       </span>
     </div>
 
@@ -27,3 +27,4 @@
     <button type="button" (click)="save()">save</button>
   </div>
 </div>
+
